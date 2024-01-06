@@ -1,4 +1,5 @@
 #include "plansza.h"
+#include <stdio.h>
 
 int ruch(Board *board) {
     int x = board->antX;
@@ -26,7 +27,6 @@ int ruch(Board *board) {
     }
 
     // Jeżeli któraś ze współrzędnych przekroczy wymiary planszy funkcja zwraca -1;
-    if(board->antX >= board->height || board->antY >= board->width) return -1;
-    
+    if(board->antX >= board->height || board->antY >= board->width || board->antX < 0 || board->antY < 0) return -1;
     return 0;
 }

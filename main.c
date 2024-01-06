@@ -5,7 +5,6 @@
 
 int main(int argc, char **argv) {
     
-
     Arguments args = parseArguments(argc, argv);
     printf("Wymiary planszy: %d x %d\n", args.w, args.h);
     printf("Liczba iteracji: %d\n", args.i);
@@ -13,9 +12,7 @@ int main(int argc, char **argv) {
     printf("Kierunek początkowy mrówki: %d\n", args.startDirection);
 
 
-
-
-    Board *board = createBoard(args.w, args.h);
+    Board *board = createBoard(args.w, args.h, args.o);
     
     // Początkowy kierunek mrówki
     board->antDirection = args.startDirection;
@@ -28,12 +25,12 @@ int main(int argc, char **argv) {
     for(int i = 0; i < args.i; i++) {
         if(ruch(board) == -1) {
             printf("Mrowka wyszla poza plansze!!!\n");
-            printBoard(board);
             return -1;
-        };
+        }
     }
 
-    // Wygląd planszy po 1000 iteracji:
+    // Wygląd planszy po wykonaniu ostatniej iteracji
+    printf("\n");
     printBoard(board);
     freeBoard(board);
 

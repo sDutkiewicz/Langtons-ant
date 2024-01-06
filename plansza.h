@@ -12,11 +12,11 @@ typedef struct {
     int height;
     Cell **cells;
     int antX, antY;
-    int antDirection;  //4 kierunki - od 0 stopni do 270
+    int antDirection;
 } Board;
 
 // Prototypy funkcji
-Board *createBoard(int width, int height);
+Board *createBoard(int, int, int);
 void Colorchange(Board *board, int x, int y);
 void freeBoard(Board *board);
 void printBoard(Board *board);

@@ -9,6 +9,7 @@ typedef struct {
     int i; // liczba iteracji
     char *name; // nazwa pliku
     int startDirection; // kierunek początkowy mrówki
+    int o; // zagęszczenie przeszkód (0 - 100)
 } Arguments;
 
 Arguments parseArguments(int argc, char **argv);
