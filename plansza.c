@@ -18,22 +18,11 @@ Board *createBoard(int width, int height) {
         }
     }
     // Początkowa pozycja mrówki
-    board->antX = (width - 1) / 2; 
-    board->antY = (height - 1) / 2;
-
-    // Początkowy kierunek mrówki 
-    board->antDirection = SOUTH;
+    board->antX = (width - width%2) / 2; 
+    board->antY = (height - height%2) / 2;
 
     return board;
 }
-
-void Colorchange(Board *board, int x, int y) { // Funkcja zmieniająca kolor komórki
-    
-    if (x >= 0 && x < board->width && y >= 0 && y < board->height) {
-        board->cells[y][x].symbol = board->cells[y][x].symbol == 0 ? 1 : 0; // Zmiana koloru komórki na przeciwny (0 -> 1, 1 -> 0)
-    }
-}
-
 
 void freeBoard(Board *board) {
     for (int i = 0; i < board->height; i++) {
@@ -45,34 +34,45 @@ void freeBoard(Board *board) {
 
 void printBoard(Board *board) {
     setlocale(LC_ALL, "C.UTF-8");
-
     for (int y = 0; y < board->height; y++) {
         // Rysowanie górnych granic komórek
         for (int x = 0; x < board->width; x++) {
-            printf("┌──┐ ");
+            printf("┌─┐ ");
         }
         printf("\n");
 
         // Rysowanie środków komórek
         for (int x = 0; x < board->width; x++) {
             if (x == board->antX && y == board->antY) {
-                switch(board->antDirection) {
-                    case NORTH: printf("│△ │ "); break;
-                    case EAST:  printf("│▷ │ "); break;
-                    case SOUTH: printf("│▽ │ "); break;
-                    case WEST:  printf("│◁ │ "); break;
+                // Jeżeli komórka jest biała to mrówka też jest biała
+                if(board->cells[y][x].symbol == 0) {
+                    switch(board->antDirection) {
+                        case 0: printf("│△│ "); break;
+                        case 90:  printf("│▷│ "); break;
+                        case 180: printf("│▽│ "); break;
+                        case 270:  printf("│◁│ "); break;
+                    }
+                }
+                // Jeśli komórka jest czarna to mrówka też jest czarna
+                if(board->cells[y][x].symbol == 1) {
+                    switch(board->antDirection) {
+                        case 0: printf("│▲│ "); break;
+                        case 90:  printf("│▶│ "); break;
+                        case 180: printf("│▼│ "); break;
+                        case 270:  printf("│◀│ "); break;
+                    }
                 }
             }
             else if (board->cells[y][x].symbol == 0)
-                printf("│  │ ");  // Białe pole
+                printf("│ │ ");  // Białe pole
             else if (board->cells[y][x].symbol == 1)
-                printf("│ █ │ ");  // Czarne pole
+                printf("│█│ ");  // Czarne pole
         }
         printf("\n");
 
         // Rysowanie dolnych granic komórek
         for (int x = 0; x < board->width; x++) {
-            printf("└──┘ ");
+            printf("└─┘ ");
         }
         printf("\n");
     

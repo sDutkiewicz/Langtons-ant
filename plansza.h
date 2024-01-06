@@ -6,17 +6,13 @@ typedef struct {
     char symbol; // Przechowuje symbol reprezentujący stan komórki
 } Cell;
 
-typedef enum {
-    NORTH, EAST, SOUTH, WEST
-} Direction;
-
 // Definicja struktury planszy
 typedef struct {
     int width;
     int height;
     Cell **cells;
     int antX, antY;
-    Direction antDirection;
+    int antDirection;  //4 kierunki - od 0 stopni do 270
 } Board;
 
 // Prototypy funkcji
