@@ -2,21 +2,41 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <locale.h>
+#include <time.h>
 
 // Implementacja funkcji createBoard
-Board *createBoard(int width, int height) {
+Board *createBoard(int width, int height, int density) {
     Board *board = (Board *)malloc(sizeof(Board));
     board->width = width;
     board->height = height;
     board->cells = (Cell **)malloc(height * sizeof(Cell *));
+    
+    // Losowanie koloru komórek zgodnie z zadaną gęstością
+    int volume = width * height;
+    int *temp = (int*)calloc(volume, sizeof(int));
+    int index, size;
+    size = (volume*density/100);
+
+    srand(time(NULL));
+    for(int k = 0; k < size; k++) {
+        index = rand()%volume;
+        if(temp[index] == 0) temp[index] = 1;
+        else k--;
+    }
 
     // Inicjalizacja komórek
+    index = 0;
     for (int i = 0; i < height; i++) {
         board->cells[i] = (Cell *)malloc(width * sizeof(Cell));
         for (int j = 0; j < width; j++) {
-            board->cells[i][j].symbol = 0;
+            if(temp[index] == 1) board->cells[i][j].symbol = 1;
+            else board->cells[i][j].symbol = 0;
+            index++;
         }
     }
+
+    free(temp);
+
     // Początkowa pozycja mrówki
     board->antX = (width - width%2) / 2; 
     board->antY = (height - height%2) / 2;

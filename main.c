@@ -3,16 +3,18 @@
 #include <stdio.h>
 
 int main() {
-    int width = 40;
-    int height = 40;
+    int width = 20;
+    int height = 20;
+    int density = 20;
 
-    Board *board = createBoard(width, height);
+    Board *board = createBoard(width, height, density);
     
     // Początkowy kierunek mrówki
     board->antDirection = 0;
     
     printf("Początkowa pozycja mrówki: (%d, %d)\n", board->antX, board->antY);
-
+    printBoard(board);
+    
     for(int i = 0; i < 1000; i++) {
         if(ruch(board) == -1) {
             printf("Mrowka wyszla poza plansze!!!\n");
@@ -21,7 +23,7 @@ int main() {
     }
 
     // Wygląd planszy po 1000 iteracji:
-    printBoard(board);
+    
     freeBoard(board);
 
     return 0;
