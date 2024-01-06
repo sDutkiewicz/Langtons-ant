@@ -1,5 +1,4 @@
 #include "plansza.h"
-#include <stdio.h>
 
 int ruch(Board *board) {
     int x = board->antX;
