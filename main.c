@@ -1,21 +1,34 @@
 #include "plansza.h"
 #include "logika.h"
+#include "argumenty.h"
 #include <stdio.h>
 
-int main() {
-    int width = 40;
-    int height = 40;
+int main(int argc, char **argv) {
+    
 
-    Board *board = createBoard(width, height);
+    Arguments args = parseArguments(argc, argv);
+    printf("Wymiary planszy: %d x %d\n", args.w, args.h);
+    printf("Liczba iteracji: %d\n", args.i);
+    printf("Nazwa pliku: %s\n", args.name);
+    printf("Kierunek początkowy mrówki: %d\n", args.startDirection);
+
+
+
+
+    Board *board = createBoard(args.w, args.h);
     
     // Początkowy kierunek mrówki
-    board->antDirection = 0;
+    board->antDirection = args.startDirection;
     
     printf("Początkowa pozycja mrówki: (%d, %d)\n", board->antX, board->antY);
 
-    for(int i = 0; i < 1000; i++) {
+    // Wygląd planszy przed iteracjami:
+    printBoard(board);
+
+    for(int i = 0; i < args.i; i++) {
         if(ruch(board) == -1) {
             printf("Mrowka wyszla poza plansze!!!\n");
+            printBoard(board);
             return -1;
         };
     }
