@@ -20,5 +20,7 @@ Board *createBoard(int, int, int);
 void Colorchange(Board *board, int x, int y);
 void freeBoard(Board *board);
 void printBoard(Board *board);
+void saveBoardToFile(Board *board, char *name, int iteration);
+Board *loadBoardFromFile(const char *fileName);
 
-#endif 
+#endif

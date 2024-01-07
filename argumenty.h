@@ -7,9 +7,10 @@ typedef struct {
     int w; // szerokość
     int h; // wysokość
     int i; // liczba iteracji
-    char *name; // nazwa pliku
+    char *n; // nazwa pliku
     int startDirection; // kierunek początkowy mrówki
     int o; // zagęszczenie przeszkód (0 - 100)
+    char *l; // nazwa pliku z plansza
 } Arguments;
 
 Arguments parseArguments(int argc, char **argv);

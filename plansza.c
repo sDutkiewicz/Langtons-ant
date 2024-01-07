@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <locale.h>
 #include <time.h>
+#include <string.h>
 
 // Implementacja funkcji createBoard
 Board *createBoard(int width, int height, int density) {
@@ -97,4 +98,128 @@ void printBoard(Board *board) {
         printf("\n");
     
     }
+}
+
+
+void saveBoardToFile(Board *board, char *baseName, int iteration) {
+
+    
+
+    char fileName[1024];
+    sprintf(fileName, "%s_%d.txt", baseName, iteration);
+
+    FILE *file = fopen(fileName, "w");
+    if (file == NULL) {
+        perror("Nie można otworzyć pliku");
+        return;
+    }
+
+    setlocale(LC_ALL, "C.UTF-8");
+
+
+    // Zapisywanie wymiarów planszy na początku pliku
+    fprintf(file, "%d %d\n", board->width, board->height);
+
+
+    for (int y = 0; y < board->height; y++) {
+        // Rysowanie górnych granic komórek
+        for (int x = 0; x < board->width; x++) {
+            fprintf(file, "┌─┐ ");
+        }
+        fprintf(file, "\n");
+
+        // Rysowanie środków komórek
+        for (int x = 0; x < board->width; x++) {
+            if (x == board->antX && y == board->antY) {
+                // Jeżeli komórka jest biała to mrówka też jest biała
+                if(board->cells[y][x].symbol == 0) {
+                    switch(board->antDirection) {
+                        case 0: fprintf(file,"│△│ "); break;
+                        case 90:  fprintf(file,"│▷│ "); break;
+                        case 180: fprintf(file,"│▽│ "); break;
+                        case 270:  fprintf(file,"│◁│ "); break;
+                    }
+                }
+                // Jeśli komórka jest czarna to mrówka też jest czarna
+                if(board->cells[y][x].symbol == 1) {
+                    switch(board->antDirection) {
+                        case 0: fprintf(file,"│▲│ "); break;
+                        case 90:  fprintf(file,"│▶│ "); break;
+                        case 180: fprintf(file,"│▼│ "); break;
+                        case 270:  fprintf(file,"│◀│ "); break;
+                    }
+                }
+            }
+            else if (board->cells[y][x].symbol == 0)
+                fprintf(file,"│ │ ");  // Białe pole
+            else if (board->cells[y][x].symbol == 1)
+                fprintf(file,"│█│ ");  // Czarne pole
+        }
+        fprintf(file,"\n");
+
+        // Rysowanie dolnych granic komórek
+        for (int x = 0; x < board->width; x++) {
+            fprintf(file, "└─┘ ");
+        }
+        fprintf(file, "\n");
+    }
+
+    fclose(file);
+}
+
+Board *loadBoardFromFile(const char *fileName) {
+
+
+    printf("Wczytywanie planszy z pliku %s\n", fileName);
+    FILE *file = fopen(fileName, "r");
+    if (file == NULL) {
+        perror("Nie można otworzyć pliku");
+        return NULL;
+    }
+
+    int width, height;
+    if (fscanf(file, "%d %d", &width, &height) != 2) { // Wczytywanie wymiarów planszy
+        fprintf(stderr, "Błąd formatu pliku: oczekiwano wymiarów planszy.\n");
+        fclose(file);
+        return NULL;
+    }
+    
+
+    
+
+    Board *board = createBoard(width, height,0);
+    int x, y = 0;
+
+    char line[1024];
+    while (fgets(line, sizeof(line), file) != NULL) { // Wczytywanie kolejnych linii z pliku
+        if (y % 4 == 2) { // Linie zawierające stan komórek i pozycję mrówki
+            x = 0;
+            char *token = strtok(line, " ");
+            while (token != NULL) {
+                if (strstr(token, "△") || strstr(token, "▷") || strstr(token, "▽") || strstr(token, "◁")
+                    || strstr(token, "▲") || strstr(token, "▶") || strstr(token, "▼") || strstr(token, "◀")) {
+                    // Ustawienie pozycji i kierunku mrówki
+                    board->antX = x;
+                    board->antY = y / 4;
+                    // Ustalenie kierunku mrówki na podstawie symbolu
+                }
+                else if (strstr(token, "█")) {
+                    board->cells[y / 4][x].symbol = 1;
+                }
+                else {
+                    board->cells[y / 4][x].symbol = 0;
+                }
+                x++;
+                token = strtok(NULL, " ");
+            }
+        }
+        y++;
+    }
+
+    printf("Plansza wczytana z pliku:\n");
+    printBoard(board);
+    printf("\n\n\n----------------\n\n\n");
+
+    fclose(file);
+    return board;
 }
