@@ -1,7 +1,6 @@
 #ifndef PLANSZA_H
 #define PLANSZA_H
 
-
 typedef struct {
     char symbol; // Przechowuje symbol reprezentujący stan komórki
 } Cell;
@@ -17,10 +16,10 @@ typedef struct {
 
 // Prototypy funkcji
 Board *createBoard(int, int, int);
-void Colorchange(Board *board, int x, int y);
-void freeBoard(Board *board);
-void printBoard(Board *board);
-void saveBoardToFile(Board *board, char *name, int iteration);
-Board *loadBoardFromFile(const char *fileName);
+void Colorchange(Board *, int, int);
+void freeBoard(Board *);
+void printBoard(Board *);
+void saveBoardToFile(Board *, char *);
+Board *loadBoardFromFile(const char *);
 
 #endif

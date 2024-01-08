@@ -13,7 +13,7 @@ typedef struct {
     char *l; // nazwa pliku z plansza
 } Arguments;
 
-Arguments parseArguments(int argc, char **argv);
+Arguments parseArguments(int , char **, char *);
 
 #endif //ARGUMENTY_H
 

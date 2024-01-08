@@ -101,13 +101,7 @@ void printBoard(Board *board) {
 }
 
 
-void saveBoardToFile(Board *board, char *baseName, int iteration) {
-
-    
-
-    char fileName[1024];
-    sprintf(fileName, "%s_%d.txt", baseName, iteration);
-
+void saveBoardToFile(Board *board, char *fileName) {
     FILE *file = fopen(fileName, "w");
     if (file == NULL) {
         perror("Nie można otworzyć pliku");
