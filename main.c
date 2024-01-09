@@ -22,14 +22,14 @@ int main(int argc, char **argv) {
 
     // sprawdz czy podano plik
     if (args.l == NULL) {
-        printf("Tworzenie nowej planszy...\n\n");
+        printf("\nTworzenie nowej planszy...\n\n");
         board = createBoard(args.w, args.h, args.o);
         printData(board, args.i, args.n, args.startDirection, args.o);
     } 
     else {
         char input[1024];
         sprintf(input, "%s/%s", IN, args.l);
-        printf("Wczytywanie planszy z pliku %s...\n", input);
+        printf("\nWczytywanie planszy z pliku %s...\n", input);
         board = loadBoardFromFile(input);
     }
 

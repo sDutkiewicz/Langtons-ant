@@ -162,9 +162,7 @@ void saveBoardToFile(Board *board, char *fileName) {
 }
 
 Board *loadBoardFromFile(const char *fileName) {
-    setlocale(LC_ALL, "C.UTF-8");
 
-    printf("Wczytywanie planszy z pliku %s\n", fileName);
     FILE *file = fopen(fileName, "r");
     if (file == NULL) {
         perror("Nie można otworzyć pliku");
@@ -217,10 +215,9 @@ Board *loadBoardFromFile(const char *fileName) {
             }
         }
         y++;
-        printf("%d\n", y);
     }
 
-    printf("Plansza wczytana z pliku:\n");
+    printf("\n\nPlansza wczytana z pliku:\n");
     printBoard(board);
     printf("\n\n\n----------------\n\n\n");
 
