@@ -9,8 +9,8 @@ void opcje() {
     printf("\n#POMOC#\n");
     printf("-w <szerokość planszy (większa od 0, domyślnie 10)>\n");
     printf("-h <wysokość planszy (większa od 0, domyślnie 10)>\n");
-    printf("-i <liczba iteracji (większa od 0, domyślnie 30)>\n");
-    printf("-n <nazwa pliku wynikowego (domyślnie: jimp)>\n");
+    printf("-i <liczba iteracji (większa od 0, domyślnie 15)>\n");
+    printf("-n <nazwa pliku wynikowego (domyślnie: plansza)>\n");
     printf("-d <początkowy kierunek mrówki (NORTH, WEST, SOUTH, EAST, domyślnie NORTH)>\n");
     printf("-o <zagęszczenie występowania przeszkód na mapie (0-100, domyślnie 0)>\n");
     printf("-l <nazwa pliku zawierającego planszę>\n\n");
@@ -18,7 +18,7 @@ void opcje() {
 
 Arguments parseArguments(int argc, char **argv, char *dir) {
     
-    Arguments args = {10, 10, 30, "jimp", 0, 0, NULL}; // Inicjalizacja struktury
+    Arguments args = {10, 10, 15, "plansza", 0, 0, NULL}; // Inicjalizacja struktury
 
     int opt; // Zmienna przechowująca aktualnie przetwarzany argument
 

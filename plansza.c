@@ -162,7 +162,7 @@ void saveBoardToFile(Board *board, char *fileName) {
 }
 
 Board *loadBoardFromFile(const char *fileName) {
-
+    setlocale(LC_ALL, "C.UTF-8");
 
     printf("Wczytywanie planszy z pliku %s\n", fileName);
     FILE *file = fopen(fileName, "r");
@@ -177,37 +177,47 @@ Board *loadBoardFromFile(const char *fileName) {
         fclose(file);
         return NULL;
     }
-    
-
-    
+    printf("Wysokosc: %d, szerokosc: %d", height, width);
 
     Board *board = createBoard(width, height,0);
-    int x, y = 0;
+    int x, p, y;
 
     char line[1024];
+    const char *directions[] = {"△", "▷", "▽", "◁", "▲", "▶", "▼", "◀"};
+    y = 0;
+    p = 0;
     while (fgets(line, sizeof(line), file) != NULL) { // Wczytywanie kolejnych linii z pliku
-        if (y % 4 == 2) { // Linie zawierające stan komórek i pozycję mrówki
-            x = 0;
+        if (y % 3 == 2) { // Linie zawierające stan komórek i pozycję mrówki
+            x = 0;        // Indeks kolumny
             char *token = strtok(line, " ");
             while (token != NULL) {
-                if (strstr(token, "△") || strstr(token, "▷") || strstr(token, "▽") || strstr(token, "◁")
-                    || strstr(token, "▲") || strstr(token, "▶") || strstr(token, "▼") || strstr(token, "◀")) {
-                    // Ustawienie pozycji i kierunku mrówki
-                    board->antX = x;
-                    board->antY = y / 4;
-                    // Ustalenie kierunku mrówki na podstawie symbolu
+                for (int i = 0; i < 8; i++) { // Sprawdzam czy komórka zawiera mrówkę, a jeśli tak to w jakim kierunku jest zwrócona
+                    if (strstr(token, directions[i])) {
+                        if(x % 2 == 1) x++;
+                        board->antX = x / 2;
+                        board->antY = y / 3;
+                        if(i > 3) board->cells[y / 3][x / 2].symbol = 1;
+                        else board->cells[y / 3][x / 2].symbol = 0;
+                        board->antDirection = (i % 4) * 90;
+                        p = i;
+                        break; // Zakończ pętlę po znalezieniu pasującego kierunku
+                    }
                 }
-                else if (strstr(token, "█")) {
-                    board->cells[y / 4][x].symbol = 1;
+            
+                if (strstr(token, "█")) {
+                    if(x % 2 == 1) x++;
+                    board->cells[y / 3][x / 2].symbol = 1;
                 }
-                else {
-                    board->cells[y / 4][x].symbol = 0;
+                
+                else if (strstr(token, directions[p]) == NULL) { // Jeśli komórka nie zawiera mrówki, ani czarnego pola to jest to białe pole
+                    board->cells[y / 3][x].symbol = 0;
                 }
                 x++;
                 token = strtok(NULL, " ");
             }
         }
         y++;
+        printf("%d\n", y);
     }
 
     printf("Plansza wczytana z pliku:\n");

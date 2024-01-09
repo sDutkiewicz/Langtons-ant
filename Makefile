@@ -1,4 +1,4 @@
-CFLAGS = 
+CFLAGS = -Wall
 TITLE = app
 
 all:
