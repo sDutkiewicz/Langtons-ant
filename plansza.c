@@ -178,9 +178,9 @@ Board *loadBoardFromFile(const char *fileName) {
     printf("Wysokosc: %d, szerokosc: %d", height, width);
 
     Board *board = createBoard(width, height,0);
-    int x, p, y;
+    int x, p, y; // x - indeks kolumny, p - indeks kierunku mrówki, y - indeks wierszas
 
-    char line[1024];
+    char line[1024]; // Bufor na wczytywaną linię
     const char *directions[] = {"△", "▷", "▽", "◁", "▲", "▶", "▼", "◀"};
     y = 0;
     p = 0;
@@ -194,7 +194,7 @@ Board *loadBoardFromFile(const char *fileName) {
                         if(x % 2 == 1) x++;
                         board->antX = x / 2;
                         board->antY = y / 3;
-                        if(i > 3) board->cells[y / 3][x / 2].symbol = 1;
+                        if(i > 3) board->cells[y / 3][x / 2].symbol = 1; 
                         else board->cells[y / 3][x / 2].symbol = 0;
                         board->antDirection = (i % 4) * 90;
                         p = i;
@@ -202,9 +202,9 @@ Board *loadBoardFromFile(const char *fileName) {
                     }
                 }
             
-                if (strstr(token, "█")) {
+                if (strstr(token, "█")) { // Jeśli komórka zawiera czarne pole 
                     if(x % 2 == 1) x++;
-                    board->cells[y / 3][x / 2].symbol = 1;
+                    board->cells[y / 3][x / 2].symbol = 1; 
                 }
                 
                 else if (strstr(token, directions[p]) == NULL) { // Jeśli komórka nie zawiera mrówki, ani czarnego pola to jest to białe pole

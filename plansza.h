@@ -2,8 +2,11 @@
 #define PLANSZA_H
 
 typedef struct {
-    char symbol; // Przechowuje symbol reprezentujący stan komórki
+    char symbol; // Przechowuje symbol reprezentujący stan komórki 
 } Cell;
+// 0 - biała komórka
+// 1 - czarna komórka
+
 
 // Definicja struktury planszy
 typedef struct {
@@ -14,9 +17,8 @@ typedef struct {
     int antDirection;
 } Board;
 
-// Prototypy funkcji
+// Funckcje 
 Board *createBoard(int, int, int);
-void Colorchange(Board *, int, int);
 void freeBoard(Board *);
 void printBoard(Board *);
 void saveBoardToFile(Board *, char *);

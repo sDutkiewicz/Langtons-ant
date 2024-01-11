@@ -10,7 +10,7 @@ typedef struct {
     char *n; // nazwa pliku
     int startDirection; // kierunek początkowy mrówki
     int o; // zagęszczenie przeszkód (0 - 100)
-    char *l; // nazwa pliku z plansza
+    char *l; // nazwa pliku z planszą
 } Arguments;
 
 Arguments parseArguments(int , char **, char *);

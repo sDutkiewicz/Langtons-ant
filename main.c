@@ -33,16 +33,18 @@ int main(int argc, char **argv) {
         board = loadBoardFromFile(input);
     }
 
-    board->antDirection = args.startDirection;
+    board->antDirection = args.startDirection; // Ustawienie kierunku początkowego mrówki
     
     printf("Początkowa pozycja mrówki: (%d, %d)\n", board->antX, board->antY);
     printf("Miejsce zapisu: %s/%s\n", OUT, args.n);
     
-    char output[1024];
-    sprintf(output, "%s/%s_%d", OUT, args.n, 0);
+    char output[1024]; // Zmienna do przechowywania ścieżki do pliku wyjściowego
+
+    // Zapisanie początkowej planszy
+    sprintf(output, "%s/%s_%d", OUT, args.n, 0); 
     saveBoardToFile(board, output);
 
-    for(int i = 0; i < args.i; i++) {
+    for(int i = 0; i < args.i; i++) { // Wykonanie iteracji
 
         if(ruch(board) == -1) {
             printf("Mrowka wyszla poza plansze!!!\n");
