@@ -53,7 +53,7 @@ int main(int argc, char **argv) {
         sprintf(output, "%s/%s_%d", OUT, args.n, i+1);
         saveBoardToFile(board, output);
     }
-    
+
     printf("Plansze zostały pomyślnie zapisane\n");
     freeBoard(board);
 

@@ -14,13 +14,13 @@ Board *createBoard(int width, int height, int density) {
     
     // Losowanie koloru komórek zgodnie z zadaną gęstością
     int volume = width * height;
-    int *temp = (int*)calloc(volume, sizeof(int));
+    int *temp = (int*)calloc(volume, sizeof(int)); // Tablica pomocnicza do losowania
     int index, size;
-    size = (volume*density/100);
+    size = (volume*density/100); 
 
     srand(time(NULL));
     for(int k = 0; k < size; k++) {
-        index = rand()%volume;
+        index = rand()%volume; 
         if(temp[index] == 0) temp[index] = 1;
         else k--;
     }
@@ -203,7 +203,7 @@ Board *loadBoardFromFile(const char *fileName) {
                 }
             
                 if (strstr(token, "█")) { // Jeśli komórka zawiera czarne pole 
-                    if(x % 2 == 1) x++;
+                    if(x % 2 == 1) x++; // Jeśli komórka zawiera czarne pole to jest to druga część komórki, więc inkrementuję x
                     board->cells[y / 3][x / 2].symbol = 1; 
                 }
                 

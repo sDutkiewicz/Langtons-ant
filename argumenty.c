@@ -22,7 +22,7 @@ Arguments parseArguments(int argc, char **argv, char *dir) {
 
     int opt; // Zmienna przechowująca aktualnie przetwarzany argument
 
-    while ((opt = getopt(argc, argv, "w:h:i:n:d:o:l:p")) != -1) {
+    while ((opt = getopt(argc, argv, "w:h:i:n:d:o:l:p")) != -1) { // Pętla przetwarzająca argumenty
         switch (opt) {
             case 'w':
                 args.w = atoi(optarg);
