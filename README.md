@@ -1,7 +1,6 @@
 # JIMP_Projekt Program Symulacji Mrówki Langtona
 
-
-
+[English version](#jimp_project-langtons-ant-simulation-program)
 ## Opis
 
 
@@ -55,3 +54,62 @@ Gdzie opcje mogą zawierać:
 ## Autorzy
 Stanisław Dutkiewicz\
 Filip Kobus
+
+
+# JIMP_Project Langton's Ant Simulation Program
+
+
+
+## Description
+
+The program simulates the behavior of [Langton's Ant](https://en.wikipedia.org/wiki/Langton%27s_ant), a cellular automaton proposed by Chris Langton in 1986. At each step, the ant turns left or right, changes the color of the cell it is on, and then moves to the next cell.
+
+## Features
+
+- Creation of a board with specified dimensions.
+- Performing a specified number of simulation steps.
+- Saving the state of the board after each iteration to files.
+- Ability to load the initial state of the board from a file.
+- Setting the initial direction of the ant.
+
+## Requirements
+
+- C language compiler.
+- UNIX operating system (Linux, macOS).
+
+## Compilation
+
+The program can be compiled using the `make` tool on the "Makefile". Example compilation command:
+
+```bash
+make -f Makefile
+```
+
+## Usage
+
+```bash
+./app [options]
+```
+
+
+Where options may include:
+
+- `-w <width>`: Board width (default 10).
+- `-h <height>`: Board height (default 10).
+- `-i <iterations>`: Number of simulation iterations (default 10).
+- `-d <direction>`: Initial direction of the ant (NORTH, EAST, SOUTH, WEST) (default NORTH).
+- `-o <density>`: Density of obstacles on the board (percentage from 0 to 100) (default 0).
+- `-n <file_name>`: Base file name for saving the board state. (default files are saved in the "output" folder).
+- `-l <file_name>`: File name for loading the initial board state. (default file is loaded from the "source" folder).
+- `-p` : Prints help for the program.
+
+## Example Execution
+
+```bash
+./app -w 20 -h 20 -i 100 -d NORTH -o 30 -n symulacja
+```
+
+## Authors
+Stanisław Dutkiewicz\
+Filip Kobus
+
