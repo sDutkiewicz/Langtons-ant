@@ -139,7 +139,7 @@ This project is licensed under the [MIT License](https://opensource.org/licenses
 
 ## 📖 Report
 
-Full project report is available in the PDF file. Click [here](Documentation_En.pdf) to download.
+Full project report is available in the PDF file. Click [here](Report_En.pdf) to download.
 
 
 ## 👨‍💻👨‍💻 Authors
